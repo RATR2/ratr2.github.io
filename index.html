@@ -97,6 +97,7 @@
       margin-bottom: 2rem;
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: transform 0.1s ease-out;
     }
 
     h2 {
@@ -119,6 +120,7 @@
       padding: 1.5rem;
       border-radius: 8px;
       border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.1s ease-out;
     }
 
     .info-card h3 {
@@ -224,7 +226,7 @@
       </div>
     </header>
 
-    <section class="section">
+    <section class="section" data-tilt>
       <h2>About Me</h2>
       <p>
         I'm a developer who recently decided to enter the scene. I create new things with multiple languages, constantly exploring and experimenting with different technologies and creative outlets.
@@ -234,7 +236,7 @@
       </p>
     </section>
 
-    <section class="section">
+    <section class="section" data-tilt>
       <h2>Tech Stack</h2>
       <div class="tech-stack">
         <span class="tech-tag">GameMaker (GML)</span>
@@ -245,7 +247,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" data-tilt>
       <h2>Fun Facts</h2>
       <div class="info-grid">
         <div class="info-card">
@@ -259,7 +261,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" data-tilt>
       <h2>Contact</h2>
       <p>
         Feel free to reach out via <a href="mailto:potatobear000@gmail.com">email</a> for business inquiries, or connect with me on <a href="https://discord.com/users/R4T2_" target="_blank" rel="noopener noreferrer">Discord (R4T2_)</a> for casual chat!
@@ -273,5 +275,52 @@
       <p>Thanks for stopping by, have a great day!</p>
     </footer>
   </div>
+
+  <script>
+    const hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (hasHover) {
+      const sections = document.querySelectorAll('[data-tilt]');
+      sections.forEach(section => {
+        section.addEventListener('mousemove', (e) => {
+          const rect = section.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+         
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+         
+          const rotateX = (y - centerY) / 20;
+          const rotateY = (centerX - x) / 20;
+         
+          section.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        });
+       
+        section.addEventListener('mouseleave', () => {
+          section.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        });
+      });
+
+      const cards = document.querySelectorAll('.info-card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+         
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+         
+          const rotateX = (y - centerY) / 30;
+          const rotateY = (centerX - x) / 30;
+         
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+       
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+        });
+      });
+    }
+  </script>
 </body>
 </html>
