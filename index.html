@@ -11,12 +11,41 @@
       box-sizing: border-box;
     }
 
-    body {
+    html, body {
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+    }
+
+    .pages-wrapper {
+      display: flex;
+      width: 200vw;
+      height: 100vh;
+      transition: transform 0.7s cubic-bezier(0.77, 0, 0.175, 1);
+      will-change: transform;
+    }
+
+    .page {
+      width: 100vw;
+      height: 100vh;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+
+    /* ── PAGE 1 ── */
+    #page-1 {
       background: linear-gradient(180deg, #ffb3d9 0%, #ff69b4 20%, #c77dff 50%, #7289da 80%, #5865F2 100%);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #ffffff;
       line-height: 1.6;
-      min-height: 100vh;
+    }
+
+    /* ── PAGE 2 ── */
+    #page-2 {
+      background: linear-gradient(180deg, #0d0d1a 0%, #12122a 40%, #0a0a1f 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #ffffff;
+      line-height: 1.6;
     }
 
     .container {
@@ -25,6 +54,37 @@
       padding: 2rem;
     }
 
+    /* ── NAV ARROWS ── */
+    .nav-arrow {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      width: 48px;
+      height: 72px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      transition: background 0.25s, transform 0.25s;
+      user-select: none;
+    }
+
+    .nav-arrow:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    #arrow-right { right: 14px; }
+    #arrow-left  { left: 14px; display: none; }
+
+    /* ── PAGE 1 STYLES ── */
     header {
       text-align: center;
       padding: 4rem 0 3rem;
@@ -179,143 +239,406 @@
       color: #f0f0f0;
     }
 
+    /* ── PAGE 2 STYLES ── */
+    .works-header {
+      text-align: center;
+      padding: 4rem 0 3rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 3rem;
+    }
+
+    .works-header h1 {
+      font-size: 3rem;
+      background: linear-gradient(135deg, #c77dff, #ffb3d9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .works-header .subtitle {
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 1.1rem;
+      text-shadow: none;
+    }
+
+    .work-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.8rem;
+      margin-bottom: 1.8rem;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.15s ease-out;
+    }
+
+    .work-card:hover {
+      border-color: rgba(199, 125, 255, 0.45);
+      box-shadow: 0 8px 40px rgba(199, 125, 255, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .work-video {
+      flex-shrink: 0;
+      width: 280px;
+      aspect-ratio: 16 / 9;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0d0d1a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .work-video iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .work-info { flex: 1; }
+
+    .work-info h3 {
+      font-size: 1.4rem;
+      color: #fff;
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+    }
+
+    .work-info p {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.65;
+      font-size: 0.97rem;
+    }
+
+    .work-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .work-tag {
+      background: rgba(199, 125, 255, 0.15);
+      border: 1px solid rgba(199, 125, 255, 0.35);
+      color: #d4a0ff;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.82rem;
+    }
+
+    .works-footer {
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.9rem;
+    }
+
     @media (max-width: 768px) {
-      h1 {
-        font-size: 2rem;
-      }
-      
-      .subtitle {
-        font-size: 1rem;
-      }
-
-      .container {
-        padding: 1rem;
-      }
-
-      .section {
-        padding: 1.5rem;
-      }
-
-      .header-content {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .profile-pic {
-        width: 100px;
-        height: 100px;
-      }
+      h1 { font-size: 2rem; }
+      .subtitle { font-size: 1rem; }
+      .container { padding: 1rem; }
+      .section { padding: 1.5rem; }
+      .header-content { flex-direction: column; gap: 1rem; }
+      .profile-pic { width: 100px; height: 100px; }
+      .work-card { flex-direction: column; gap: 1.2rem; }
+      .work-video { width: 100%; }
+      .nav-arrow { width: 38px; height: 58px; font-size: 1.1rem; }
     }
   </style>
   <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
   <meta name="description" content="R4T's developer portfolio - Half-Stack Developer with intrigue on voice acting">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="header-content">
-        <img src="./assets/R4T.png" alt="R4T profile picture" class="profile-pic">
-        <h1>R4T</h1>
-      </div>
-      <p class="subtitle">Half-Stack Developer with intrigue on voice acting</p>
-      <div class="quick-links">
-        <a href="https://github.com/RATR2" class="btn" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.youtube.com/@RATR_2" class="btn" target="_blank" rel="noopener noreferrer">YouTube</a>
-        <a href="https://discord.com/users/R4T2_" class="btn" target="_blank" rel="noopener noreferrer">Discord</a>
-        <a href="mailto:potatobear000@gmail.com" class="btn">Email</a>
-      </div>
-    </header>
 
-    <section class="section" data-tilt>
-      <h2>About Me</h2>
-      <p>
-        I'm a developer who recently decided to enter the scene. I create new things with multiple languages, constantly exploring and experimenting with different technologies and creative outlets.
-      </p>
-      <p style="margin-top: 1rem;">
-        Beyond coding, I have a growing interest in voice acting, bringing together my technical skills and creative passion.
-      </p>
-    </section>
+  <button class="nav-arrow" id="arrow-left"  aria-label="Go to About">&#8592;</button>
+  <button class="nav-arrow" id="arrow-right" aria-label="Go to Works">&#8594;</button>
 
-    <section class="section" data-tilt>
-      <h2>Tech Stack</h2>
-      <div class="tech-stack">
-        <span class="tech-tag">GameMaker (GML)</span>
-        <span class="tech-tag">Python</span>
-        <span class="tech-tag">Skriptlang</span>
-        <span class="tech-tag">CSS</span>
-        <span class="tech-tag">C#</span>
+  <div class="pages-wrapper" id="pages-wrapper">
+
+    <!-- ══════════════ PAGE 1 — ABOUT ══════════════ -->
+    <div class="page" id="page-1">
+      <div class="container">
+        <header>
+          <div class="header-content">
+            <img src="./assets/R4T.png" alt="R4T profile picture" class="profile-pic">
+            <h1>R4T</h1>
+          </div>
+          <p class="subtitle">Half-Stack Developer with intrigue on voice acting</p>
+          <div class="quick-links">
+            <a href="https://github.com/RATR2" class="btn" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://www.youtube.com/@RATR_2" class="btn" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="/cdn-cgi/l/email-protection#03736c7762776c6166627133333343646e626a6f2d606c6e" class="btn">Email</a>
+          </div>
+        </header>
+
+        <section class="section" data-tilt>
+          <h2>About Me</h2>
+          <p>
+            I'm a developer who recently decided to enter the scene. I create new things with multiple languages, constantly exploring and experimenting with different technologies and creative outlets.
+          </p>
+          <p style="margin-top: 1rem;">
+            Beyond coding, I have a growing interest in voice acting, bringing together my technical skills and creative passion.
+          </p>
+        </section>
+
+        <section class="section" data-tilt>
+          <h2>Tech Stack</h2>
+          <div class="tech-stack">
+            <span class="tech-tag">GameMaker (GML)</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Skriptlang</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">C#</span>
+          </div>
+        </section>
+
+        <section class="section" data-tilt>
+          <h2>Fun Facts</h2>
+          <div class="info-grid">
+            <div class="info-card">
+              <h3>Personal</h3>
+              <p>I'm autistic... In a good way.</p>
+            </div>
+            <div class="info-card">
+              <h3>Creative Side</h3>
+              <p>Exploring voice acting alongside development - bridging tech and creativity!</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" data-tilt>
+          <h2>Contact</h2>
+          <p>
+            Feel free to reach out via <a href="/cdn-cgi/l/email-protection#0878677c697c676a6d697a383838486f65696164266b6765">email</a> for business inquiries!
+          </p>
+          <p style="margin-top: 1rem;">
+            You can also find me on <a href="https://github.com/RATR2" target="_blank" rel="noopener noreferrer">GitHub</a> and <a href="https://www.youtube.com/@RATR_2" target="_blank" rel="noopener noreferrer">YouTube</a>.
+          </p>
+        </section>
+
+        <footer>
+          <p>Thanks for stopping by, have a great day!</p>
+        </footer>
       </div>
-    </section>
+    </div>
 
-    <section class="section" data-tilt>
-      <h2>Fun Facts</h2>
-      <div class="info-grid">
-        <div class="info-card">
-          <h3>Personal</h3>
-          <p>I'm autistic... In a good way.</p>
+    <!-- ══════════════ PAGE 2 — WORKS ══════════════ -->
+    <div class="page" id="page-2">
+      <div class="container">
+        <div class="works-header">
+          <h1>My Works</h1>
+          <p class="subtitle">Projects, plugins &amp; experiments</p>
         </div>
-        <div class="info-card">
-          <h3>Creative Side</h3>
-          <p>Exploring voice acting alongside development - bridging tech and creativity!</p>
+
+        <div class="work-card">
+          <div class="work-video">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/CAK4T8-maa0"
+              
+               ></iframe>
+          </div>
+          <div class="work-info">
+            <h3>GUI System Demo</h3>
+            <p>A fun personal project — a simple GUI with some cool features. Everything was handled client side.</p>
+            <div class="work-tags">
+              <span class="work-tag">Client-side</span>
+              <span class="work-tag">GUI</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-video">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/mYnFAqsI93s"
+              
+               ></iframe>
+          </div>
+          <div class="work-info">
+            <h3>Jujutsu Kaisen — Piercing Blood</h3>
+            <p>My second time using player animation techniques in Skript + BetterModel. A recreation of the Piercing Blood ability from JJK.</p>
+            <div class="work-tags">
+              <span class="work-tag">Skriptlang</span>
+              <span class="work-tag">BetterModel</span>
+              <span class="work-tag">Minecraft</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-video">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/eFWC4hpw1FM"
+              
+               ></iframe>
+          </div>
+          <div class="work-info">
+            <h3>Jujutsu Kaisen — Domain Expansion</h3>
+            <p>A minimal Domain Expansion-esque effect made with Skript + BetterModel. This was my first time ever using BetterModel.</p>
+            <div class="work-tags">
+              <span class="work-tag">Skriptlang</span>
+              <span class="work-tag">BetterModel</span>
+              <span class="work-tag">Minecraft</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-video">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ex_nZgEmEiI"
+              
+               ></iframe>
+          </div>
+          <div class="work-info">
+            <h3>Rituals</h3>
+            <p>Custom ritual system for SMPs. Planning to remake this with BetterModel to make it even better.</p>
+            <div class="work-tags">
+              <span class="work-tag">Skriptlang</span>
+              <span class="work-tag">Minecraft</span>
+              <span class="work-tag">Commission-ready</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-video">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/Cyx90DedUnQ"
+              
+               ></iframe>
+          </div>
+          <div class="work-info">
+            <h3>Texturepack Commission</h3>
+            <p>A texturepack commission — the particles weren't mine, though I could definitely pull those off.</p>
+            <div class="work-tags">
+              <span class="work-tag">Texturepack</span>
+              <span class="work-tag">Commission</span>
+              <span class="work-tag">Minecraft</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-video">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/Oqjc1ruTnBg"
+              
+               ></iframe>
+          </div>
+          <div class="work-info">
+            <h3>Deltarune Mod</h3>
+            <p>Unrelated to Minecraft — I learned how to mod Deltarune and made this. A fun detour into GameMaker modding.</p>
+            <div class="work-tags">
+              <span class="work-tag">GameMaker</span>
+              <span class="work-tag">Deltarune</span>
+              <span class="work-tag">Modding</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-video">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/jq5yUU-wjas"
+              
+               ></iframe>
+          </div>
+          <div class="work-info">
+            <h3>Spark SMP Test</h3>
+            <p>One of my earliest developments ever — my very first ability. It never got used, but hey, we start somewhere. 😭</p>
+            <div class="work-tags">
+              <span class="work-tag">Skriptlang</span>
+              <span class="work-tag">Minecraft</span>
+              <span class="work-tag">First Project</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-video">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/JyWoLlxuLLM"
+              
+               ></iframe>
+          </div>
+          <div class="work-info">
+            <h3>Marine SMP</h3>
+            <p>Assisted on this project, handling mostly backend work. A fun collaboration overall.</p>
+            <div class="work-tags">
+              <span class="work-tag">Skriptlang</span>
+              <span class="work-tag">Minecraft</span>
+              <span class="work-tag">Collaboration</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-video">
+            <iframe referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/0_fOG9cK6gU"
+              
+               ></iframe>
+          </div>
+          <div class="work-info">
+            <h3>Chara?</h3>
+            <p>The pinnacle of my dev skills at the time. I could redo this now — much, much better.</p>
+            <div class="work-tags">
+              <span class="work-tag">Skriptlang</span>
+              <span class="work-tag">Minecraft</span>
+              <span class="work-tag">Showcase</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="works-footer">
+          <p>More coming soon · <a href="https://github.com/RATR2" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://www.youtube.com/@RATR_2" target="_blank" rel="noopener noreferrer">YouTube</a></p>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section class="section" data-tilt>
-      <h2>Contact</h2>
-      <p>
-        Feel free to reach out via <a href="mailto:potatobear000@gmail.com">email</a> for business inquiries, or connect with me on <a href="https://discord.com/users/R4T2_" target="_blank" rel="noopener noreferrer">Discord (R4T2_)</a> for casual chat!
-      </p>
-      <p style="margin-top: 1rem;">
-        You can also find me on <a href="https://github.com/RATR2" target="_blank" rel="noopener noreferrer">GitHub</a> and <a href="https://www.youtube.com/@RATR_2" target="_blank" rel="noopener noreferrer">YouTube</a>.
-      </p>
-    </section>
-
-    <footer>
-      <p>Thanks for stopping by, have a great day!</p>
-    </footer>
-  </div>
+  </div><!-- /pages-wrapper -->
 
   <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      var wrapper    = document.getElementById('pages-wrapper');
+      var arrowLeft  = document.getElementById('arrow-left');
+      var arrowRight = document.getElementById('arrow-right');
+      var currentPage = 0;
+      var totalPages  = 2;
+
+      function goTo(page) {
+        currentPage = Math.max(0, Math.min(page, totalPages - 1));
+        wrapper.style.transform = 'translateX(-' + (currentPage * 100) + 'vw)';
+        arrowLeft.style.display  = currentPage > 0              ? 'flex' : 'none';
+        arrowRight.style.display = currentPage < totalPages - 1 ? 'flex' : 'none';
+      }
+
+      arrowRight.addEventListener('click', function() { goTo(currentPage + 1); });
+      arrowLeft.addEventListener ('click', function() { goTo(currentPage - 1); });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight') goTo(currentPage + 1);
+        if (e.key === 'ArrowLeft')  goTo(currentPage - 1);
+      });
+    });
+
+    // Tilt effect (page 1 only)
     const hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     if (hasHover) {
-      const sections = document.querySelectorAll('[data-tilt]');
-      sections.forEach(section => {
+      document.querySelectorAll('[data-tilt]').forEach(section => {
         section.addEventListener('mousemove', (e) => {
           const rect = section.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-         
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-         
-          const rotateX = (y - centerY) / 20;
-          const rotateY = (centerX - x) / 20;
-         
+          const rotateX = (e.clientY - rect.top  - rect.height / 2) / 20;
+          const rotateY = (rect.width / 2 - (e.clientX - rect.left)) / 20;
           section.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
         });
-       
         section.addEventListener('mouseleave', () => {
           section.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
         });
       });
 
-      const cards = document.querySelectorAll('.info-card');
-      cards.forEach(card => {
+      document.querySelectorAll('.info-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
           const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-         
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-         
-          const rotateX = (y - centerY) / 30;
-          const rotateY = (centerX - x) / 30;
-         
+          const rotateX = (e.clientY - rect.top  - rect.height / 2) / 30;
+          const rotateY = (rect.width / 2 - (e.clientX - rect.left)) / 30;
           card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });
-       
         card.addEventListener('mouseleave', () => {
           card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
         });
