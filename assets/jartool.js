@@ -24,6 +24,7 @@
   const btnDecompileAll = el("btn-decompile-all");
   const btnRecompile = el("btn-recompile");
   const btnExport = el("btn-export");
+  const btnExportSrc = el("btn-export-src");
   const editorFilename = el("editor-filename");
   const editorFlag = el("editor-flag");
   const editorEmpty = el("editor-empty");
@@ -273,6 +274,7 @@
         sources.set(javaPath, source);
       }
       setEngineStatus("ready", "engine ready");
+      btnExportSrc.disabled = sources.size === 0;
       updateTreeFlags();
       if (activePath) openFile(activePath);
     } catch (err) {
@@ -343,6 +345,7 @@
 
       btnDecompileAll.disabled = entries.filter((e) => e.isClass).length === 0;
       btnExport.disabled = false;
+      btnExportSrc.disabled = true;
       btnRecompile.disabled = true;
       editorFilename.textContent = "No file selected";
       editorFlag.textContent = "";
@@ -375,6 +378,34 @@
       log(`Exported ${baseName}-edited.jar`, "ok");
     } catch (err) {
       log(`Export failed: ${err}`, "err");
+    }
+  });
+
+  // ── export decompiled sources as zip ──
+
+  btnExportSrc.addEventListener("click", async () => {
+    if (!zip || sources.size === 0) return;
+    try {
+      const out = new JSZip();
+      for (const [javaPath, source] of sources) out.file(javaPath, source);
+      // carry non-class resources (manifest, configs, assets) along
+      for (const e of entries) {
+        if (e.isClass) continue;
+        out.file(e.path, await zip.file(e.path).async("uint8array"));
+      }
+      const blob = await out.generateAsync({ type: "blob", compression: "DEFLATE" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      const baseName = (jarNameEl.textContent || "output.jar").replace(/\.jar$/i, "");
+      a.href = url;
+      a.download = `${baseName}-sources.zip`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      log(`Exported ${baseName}-sources.zip (${sources.size} source files)`, "ok");
+    } catch (err) {
+      log(`Source export failed: ${err}`, "err");
     }
   });
 
