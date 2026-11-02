@@ -34,7 +34,7 @@
 
     <div class="work-card">
       <div class="work-video">
-        <iframe referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://www.youtube.com/embed/haslOpsP4nk"></iframe>
+        <div class="yt-slot" data-yt="haslOpsP4nk"></div>
       </div>
       <div class="work-info">
         <h3>Text &amp; Block Display GUI</h3>
@@ -49,7 +49,7 @@
 
     <div class="work-card">
       <div class="work-video">
-        <iframe referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://www.youtube.com/embed/8C_rAgpHUpo"></iframe>
+        <div class="yt-slot" data-yt="8C_rAgpHUpo"></div>
       </div>
       <div class="work-info">
         <h3>Post Effect Demo</h3>
@@ -64,7 +64,7 @@
 
     <div class="work-card">
       <div class="work-video">
-        <iframe referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://www.youtube.com/embed/CAK4T8-maa0"></iframe>
+        <div class="yt-slot" data-yt="CAK4T8-maa0"></div>
       </div>
       <div class="work-info">
         <h3>GUI System Demo</h3>
@@ -78,7 +78,7 @@
 
     <div class="work-card">
       <div class="work-video">
-        <iframe referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://www.youtube.com/embed/mYnFAqsI93s"></iframe>
+        <div class="yt-slot" data-yt="mYnFAqsI93s"></div>
       </div>
       <div class="work-info">
         <h3>Jujutsu Kaisen - Piercing Blood</h3>
@@ -93,7 +93,7 @@
 
     <div class="work-card">
       <div class="work-video">
-        <iframe referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://www.youtube.com/embed/eFWC4hpw1FM"></iframe>
+        <div class="yt-slot" data-yt="eFWC4hpw1FM"></div>
       </div>
       <div class="work-info">
         <h3>Jujutsu Kaisen - Domain Expansion</h3>
@@ -108,7 +108,7 @@
 
     <div class="work-card">
       <div class="work-video">
-        <iframe referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://www.youtube.com/embed/ex_nZgEmEiI"></iframe>
+        <div class="yt-slot" data-yt="ex_nZgEmEiI"></div>
       </div>
       <div class="work-info">
         <h3>Rituals</h3>
@@ -123,7 +123,7 @@
 
     <div class="work-card">
       <div class="work-video">
-        <iframe referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://www.youtube.com/embed/Cyx90DedUnQ"></iframe>
+        <div class="yt-slot" data-yt="Cyx90DedUnQ"></div>
       </div>
       <div class="work-info">
         <h3>Texturepack Commission</h3>
@@ -138,7 +138,7 @@
 
     <div class="work-card">
       <div class="work-video">
-        <iframe referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://www.youtube.com/embed/Oqjc1ruTnBg"></iframe>
+        <div class="yt-slot" data-yt="Oqjc1ruTnBg"></div>
       </div>
       <div class="work-info">
         <h3>Deltarune Mod</h3>
@@ -153,7 +153,7 @@
 
     <div class="work-card">
       <div class="work-video">
-        <iframe referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://www.youtube.com/embed/jq5yUU-wjas"></iframe>
+        <div class="yt-slot" data-yt="jq5yUU-wjas"></div>
       </div>
       <div class="work-info">
         <h3>Spark SMP Test</h3>
@@ -168,7 +168,7 @@
 
     <div class="work-card">
       <div class="work-video">
-        <iframe referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://www.youtube.com/embed/JyWoLlxuLLM"></iframe>
+        <div class="yt-slot" data-yt="JyWoLlxuLLM"></div>
       </div>
       <div class="work-info">
         <h3>Marine SMP</h3>
@@ -183,7 +183,7 @@
 
     <div class="work-card">
       <div class="work-video">
-        <iframe referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://www.youtube.com/embed/0_fOG9cK6gU"></iframe>
+        <div class="yt-slot" data-yt="0_fOG9cK6gU"></div>
       </div>
       <div class="work-info">
         <h3>Chara?</h3>
@@ -201,6 +201,22 @@
     </footer>
 
   </main>
+
+  <script>
+    // Build the YouTube players from script instead of static markup. Static
+    // iframes get their navigation history restored by index on reload / back,
+    // so after cards are added or reordered each player can show a different
+    // card's video. Script-created iframes are never restored.
+    document.querySelectorAll(".yt-slot").forEach(function (slot) {
+      var f = document.createElement("iframe");
+      f.src = "https://www.youtube.com/embed/" + slot.dataset.yt;
+      f.referrerPolicy = "strict-origin-when-cross-origin";
+      f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      f.allowFullscreen = true;
+      f.title = slot.closest(".work-card").querySelector("h3").textContent;
+      slot.replaceWith(f);
+    });
+  </script>
 
 </body>
 </html>
